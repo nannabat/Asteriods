@@ -8,15 +8,21 @@ def main():
     clock = pygame.time.Clock()
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable,drawable)
     player = Player(x,y)
     dt = 0
+    
+
     while True:     
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        player.update(dt)
-        screen.fill(color=(0,0,0))    
-        player.draw(screen)
+        updatable.update(dt)
+        screen.fill(color=(0,0,0))  
+        for d in drawable:
+            d.draw(screen)  
         pygame.display.flip()
         delta_milliseconds = clock.tick(60)
         dt = delta_milliseconds / 1000
